@@ -1,2 +1,2 @@
 # Audio_Analyzer
-Using GStreamer to anaylze audio files 
+Using GStreamer to analyze audio files 

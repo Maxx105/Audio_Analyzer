@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- <form action="/api/audiofile" encType="multipart/form-data" id="uploadForm"> -->
+    <form encType="multipart/form-data" id="uploadForm">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Upload Audio File</label>
+            <!-- <input class="form-control" type="file" id="myFiles" multiple/> -->
+            <input class="form-control" type="file" id="myFiles"/>
+            <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        </div>
+    </form>
+    <h2></h2>
+    <h3></h3>
+    <script>
+        const form = document.getElementById("uploadForm")
+        const sendFiles = async () => {
+            const myFiles = document.getElementById('myFiles').files
+            const formData = new FormData()
+            Object.keys(myFiles).forEach(key => {
+                formData.append(myFiles.item(key).name, myFiles.item(key))
+            })
+            const response = await fetch("http://localhost:3001/audiofile", {
+                method: "POST",
+                body: formData
+            })
+            const json = await response.json();
+            console.log(json)
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            sendFiles();
+        })
+    </script>
+</body>
+</html>
